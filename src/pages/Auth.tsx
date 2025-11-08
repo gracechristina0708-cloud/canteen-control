@@ -7,6 +7,20 @@ import { Label } from "@/components/ui/label";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
+import { z } from "zod";
+
+// Validation schemas
+const loginSchema = z.object({
+  email: z.string().email("Invalid email address").max(255, "Email too long"),
+  password: z.string().min(8, "Password must be at least 8 characters").max(100, "Password too long"),
+});
+
+const signUpSchema = z.object({
+  name: z.string().trim().min(1, "Name is required").max(100, "Name too long"),
+  email: z.string().email("Invalid email address").max(255, "Email too long"),
+  mobile: z.string().max(20, "Mobile number too long").optional(),
+  password: z.string().min(8, "Password must be at least 8 characters").max(100, "Password too long"),
+});
 
 const Auth = () => {
   const { role } = useParams<{ role: "customer" | "employee" | "admin" }>();
@@ -18,6 +32,7 @@ const Auth = () => {
     mobile: "",
     password: "",
   });
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   const navigate = useNavigate();
   const { signUp, signIn, profile, user } = useAuth();
@@ -39,9 +54,28 @@ const Auth = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setErrors({});
 
     try {
       if (isLogin) {
+        // Validate login data
+        const validation = loginSchema.safeParse({
+          email: formData.email,
+          password: formData.password,
+        });
+
+        if (!validation.success) {
+          const fieldErrors: Record<string, string> = {};
+          validation.error.errors.forEach((err) => {
+            if (err.path[0]) {
+              fieldErrors[err.path[0].toString()] = err.message;
+            }
+          });
+          setErrors(fieldErrors);
+          setLoading(false);
+          return;
+        }
+
         const { error } = await signIn(formData.email, formData.password);
         if (error) {
           toast({
@@ -56,6 +90,21 @@ const Auth = () => {
           });
         }
       } else {
+        // Validate signup data
+        const validation = signUpSchema.safeParse(formData);
+
+        if (!validation.success) {
+          const fieldErrors: Record<string, string> = {};
+          validation.error.errors.forEach((err) => {
+            if (err.path[0]) {
+              fieldErrors[err.path[0].toString()] = err.message;
+            }
+          });
+          setErrors(fieldErrors);
+          setLoading(false);
+          return;
+        }
+
         const { error } = await signUp(
           formData.email,
           formData.password,
@@ -117,6 +166,7 @@ const Auth = () => {
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     required
                   />
+                  {errors.name && <p className="text-sm text-destructive">{errors.name}</p>}
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="mobile">Mobile Number (Optional)</Label>
@@ -140,6 +190,7 @@ const Auth = () => {
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 required
               />
+              {errors.email && <p className="text-sm text-destructive">{errors.email}</p>}
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
@@ -151,6 +202,7 @@ const Auth = () => {
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                 required
               />
+              {errors.password && <p className="text-sm text-destructive">{errors.password}</p>}
             </div>
             <Button type="submit" className="w-full" disabled={loading}>
               {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
