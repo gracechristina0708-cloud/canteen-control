@@ -11,12 +11,14 @@ import { format } from "date-fns";
 
 interface Order {
   id: string;
+  order_number: string;
   total_amount: number;
   payment_method: string;
   status: string;
   created_at: string;
   profiles: {
     name: string;
+    mobile: string | null;
   };
   order_items: Array<{
     quantity: number;
@@ -44,7 +46,7 @@ const AdminDashboard = () => {
       .from("orders")
       .select(`
         *,
-        profiles!orders_customer_id_fkey(name),
+        profiles!orders_customer_id_fkey(name, mobile),
         order_items(
           quantity,
           menu_items(name)
@@ -75,9 +77,14 @@ const AdminDashboard = () => {
     <Card key={order.id} className="hover:shadow-md transition-shadow">
       <CardHeader>
         <div className="flex justify-between items-start">
-          <div>
-            <CardTitle className="text-lg">Order #{order.id.slice(0, 8)}</CardTitle>
+          <div className="space-y-1">
+            <CardTitle className="text-lg font-bold text-primary">
+              {(order as any).order_number || `Order #${order.id.slice(0, 8)}`}
+            </CardTitle>
             <CardDescription>Customer: {order.profiles.name}</CardDescription>
+            {order.profiles.mobile && (
+              <p className="text-sm text-muted-foreground">📱 {order.profiles.mobile}</p>
+            )}
           </div>
           <Badge
             variant={order.status === "completed" ? "default" : "destructive"}
@@ -108,7 +115,7 @@ const AdminDashboard = () => {
         </div>
 
         <div className="flex justify-between items-center pt-2 border-t">
-          <span className="text-sm font-medium">Amount</span>
+          <span className="text-sm font-medium">Amount Paid</span>
           <span className="text-lg font-bold text-primary">
             ₹{order.total_amount.toFixed(2)}
           </span>
@@ -122,7 +129,7 @@ const AdminDashboard = () => {
       <header className="bg-card/80 backdrop-blur-sm border-b sticky top-0 z-10 shadow-sm">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div>
-            <h1 className="text-2xl font-bold">Admin Dashboard</h1>
+            <h1 className="text-2xl md:text-3xl font-bold text-primary">MEC Bites - Admin</h1>
             <p className="text-sm text-muted-foreground">Monitor all transactions and analytics</p>
           </div>
           <Button variant="outline" onClick={signOut}>

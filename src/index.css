@@ -8,52 +8,61 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 30 20% 97%;
-    --foreground: 20 14% 12%;
+    --background: 0 0% 98%;
+    --foreground: 237 82% 11%;
 
     --card: 0 0% 100%;
-    --card-foreground: 20 14% 12%;
+    --card-foreground: 237 82% 11%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 20 14% 12%;
+    --popover-foreground: 237 82% 11%;
 
-    --primary: 24 85% 55%;
+    --primary: 237 82% 31%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 142 58% 48%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 45 100% 50%;
+    --secondary-foreground: 237 82% 11%;
 
-    --muted: 30 20% 92%;
-    --muted-foreground: 20 8% 45%;
+    --muted: 237 20% 92%;
+    --muted-foreground: 237 20% 45%;
 
-    --accent: 45 95% 58%;
-    --accent-foreground: 20 14% 12%;
+    --accent: 45 100% 50%;
+    --accent-foreground: 237 82% 11%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 30 20% 88%;
-    --input: 30 20% 88%;
-    --ring: 24 85% 55%;
+    --border: 237 20% 88%;
+    --input: 237 20% 88%;
+    --ring: 237 82% 31%;
 
     --radius: 0.75rem;
     
-    /* Custom tokens for food theme */
+    /* MEC Bites brand colors */
+    --mec-royal-blue: 237 82% 31%;
+    --mec-gold: 45 100% 50%;
+    --mec-white: 0 0% 100%;
+    
+    /* Food category colors */
     --food-veg: 142 58% 48%;
     --food-non-veg: 0 72% 51%;
-    --food-warm: 24 85% 55%;
-    --food-accent: 45 95% 58%;
+    --food-meals: 30 85% 55%;
+    --food-beverages: 200 85% 55%;
+    --food-snacks: 45 95% 58%;
     
     /* Gradients */
-    --gradient-warm: linear-gradient(135deg, hsl(24 85% 55%), hsl(45 95% 58%));
-    --gradient-hero: linear-gradient(135deg, hsl(24 85% 65%), hsl(24 85% 45%));
+    --gradient-hero: linear-gradient(135deg, hsl(237 82% 31%), hsl(45 100% 50%));
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%), hsl(237 10% 97%));
+    --gradient-food: linear-gradient(135deg, hsl(237 82% 40%), hsl(237 82% 25%));
     
     /* Shadows */
-    --shadow-food: 0 10px 30px -10px hsl(24 85% 55% / 0.3);
-    --shadow-glow: 0 0 40px hsl(45 95% 58% / 0.2);
+    --shadow-card: 0 4px 20px -4px hsl(237 82% 31% / 0.15);
+    --shadow-gold: 0 4px 20px -4px hsl(45 100% 50% / 0.25);
+    --shadow-elevated: 0 10px 40px -10px hsl(237 82% 31% / 0.3);
     
     /* Transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --sidebar-background: 0 0% 98%;
 
@@ -73,33 +82,33 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 20 14% 8%;
-    --foreground: 30 20% 97%;
+    --background: 237 82% 8%;
+    --foreground: 0 0% 98%;
 
-    --card: 20 14% 12%;
-    --card-foreground: 30 20% 97%;
+    --card: 237 82% 12%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 20 14% 12%;
-    --popover-foreground: 30 20% 97%;
+    --popover: 237 82% 12%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 24 85% 55%;
+    --primary: 237 82% 45%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 142 58% 48%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 45 100% 55%;
+    --secondary-foreground: 237 82% 11%;
 
-    --muted: 20 14% 18%;
-    --muted-foreground: 20 8% 65%;
+    --muted: 237 30% 18%;
+    --muted-foreground: 237 20% 65%;
 
-    --accent: 45 95% 58%;
-    --accent-foreground: 20 14% 8%;
+    --accent: 45 100% 55%;
+    --accent-foreground: 237 82% 8%;
 
     --destructive: 0 62.8% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 20 14% 22%;
-    --input: 20 14% 22%;
-    --ring: 24 85% 55%;
+    --border: 237 30% 22%;
+    --input: 237 30% 22%;
+    --ring: 237 82% 45%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;

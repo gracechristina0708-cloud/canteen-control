@@ -8,6 +8,7 @@ import { Clock, CheckCircle, XCircle, ChefHat } from "lucide-react";
 
 interface Order {
   id: string;
+  order_number: string;
   total_amount: number;
   payment_method: string;
   status: string;
@@ -133,7 +134,9 @@ const OrdersTab = () => {
           <CardHeader>
             <div className="flex justify-between items-start">
               <div>
-                <CardTitle className="text-lg">Order #{order.id.slice(0, 8)}</CardTitle>
+                <CardTitle className="text-xl font-bold text-primary">
+                  {order.order_number || `Order #${order.id.slice(0, 8)}`}
+                </CardTitle>
                 <CardDescription>
                   {format(new Date(order.created_at), "PPp")}
                 </CardDescription>

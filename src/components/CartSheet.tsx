@@ -86,8 +86,8 @@ const CartSheet = ({ cart, setCart }: CartSheetProps) => {
       });
 
       toast({
-        title: "Order Placed!",
-        description: "Your order has been placed successfully",
+        title: "Order Placed! 🎉",
+        description: `Order ${(order as any).order_number || order.id.slice(0, 8)} has been placed successfully`,
       });
 
       setCart([]);

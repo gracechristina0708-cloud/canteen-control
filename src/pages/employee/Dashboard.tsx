@@ -11,6 +11,7 @@ import { format } from "date-fns";
 
 interface Order {
   id: string;
+  order_number: string;
   total_amount: number;
   payment_method: string;
   status: string;
@@ -18,6 +19,7 @@ interface Order {
   profiles: {
     name: string;
     email: string | null;
+    mobile: string | null;
   };
   order_items: Array<{
     quantity: number;
@@ -68,7 +70,7 @@ const EmployeeDashboard = () => {
       .from("orders")
       .select(`
         *,
-        profiles!orders_customer_id_fkey(name, email),
+        profiles!orders_customer_id_fkey(name, email, mobile),
         order_items(
           quantity,
           price,
@@ -139,7 +141,7 @@ const EmployeeDashboard = () => {
       <header className="bg-card/80 backdrop-blur-sm border-b sticky top-0 z-10 shadow-sm">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div>
-            <h1 className="text-2xl font-bold">Employee Dashboard</h1>
+            <h1 className="text-2xl md:text-3xl font-bold text-primary">MEC Bites - Employee</h1>
             <p className="text-sm text-muted-foreground">Manage incoming orders</p>
           </div>
           <Button variant="outline" onClick={signOut}>
@@ -175,11 +177,18 @@ const EmployeeDashboard = () => {
               <Card key={order.id} className="border-2">
                 <CardHeader>
                   <div className="flex justify-between items-start">
-                    <div>
-                      <CardTitle className="text-lg">Order #{order.id.slice(0, 8)}</CardTitle>
+                    <div className="space-y-1">
+                      <CardTitle className="text-xl font-bold text-primary">
+                        {(order as any).order_number || `Order #${order.id.slice(0, 8)}`}
+                      </CardTitle>
                       <CardDescription>
                         Customer: {order.profiles.name}
                       </CardDescription>
+                      {order.profiles.mobile && (
+                        <p className="text-sm text-muted-foreground flex items-center gap-1">
+                          📱 {order.profiles.mobile}
+                        </p>
+                      )}
                       <p className="text-xs text-muted-foreground">
                         {format(new Date(order.created_at), "PPp")}
                       </p>

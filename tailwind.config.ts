@@ -50,8 +50,14 @@ export default {
         food: {
           veg: "hsl(var(--food-veg))",
           nonveg: "hsl(var(--food-non-veg))",
-          warm: "hsl(var(--food-warm))",
-          accent: "hsl(var(--food-accent))",
+          meals: "hsl(var(--food-meals))",
+          beverages: "hsl(var(--food-beverages))",
+          snacks: "hsl(var(--food-snacks))",
+        },
+        mec: {
+          blue: "hsl(var(--mec-royal-blue))",
+          gold: "hsl(var(--mec-gold))",
+          white: "hsl(var(--mec-white))",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",

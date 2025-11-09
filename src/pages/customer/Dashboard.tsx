@@ -96,8 +96,8 @@ const CustomerDashboard = () => {
       <header className="bg-card/80 backdrop-blur-sm border-b sticky top-0 z-10 shadow-sm">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div>
-            <h1 className="text-2xl font-bold">Welcome, {profile?.name}!</h1>
-            <p className="text-sm text-muted-foreground">Browse and order your favorite food</p>
+            <h1 className="text-2xl md:text-3xl font-bold text-primary">MEC Bites</h1>
+            <p className="text-sm text-muted-foreground">Welcome, {profile?.name}! Browse and order your favorite food</p>
           </div>
           <div className="flex items-center gap-4">
             <CartSheet cart={cart} setCart={setCart} />
